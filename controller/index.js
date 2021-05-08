@@ -1,8 +1,12 @@
 const express = require ('express');
 const router = express.Router();
+const db = require("../models")
 
 router.get ("/", function(req,res) {
-    res.render("homepage");
+    const hbsobj = {
+        data: [{name: "Mr. Squiggles"}, {name: "Bob"}, {name: "Cloud"}, {name: "Aerith"}, {name: "Jean Claude Van Damme"}]
+    }
+    res.render("homepage", hbsobj);
 }); 
 
 router.get ("/dashboard", function(req,res) {
@@ -10,6 +14,12 @@ router.get ("/dashboard", function(req,res) {
 });
 
 router.get ("/login", function(req,res) {
+    db.User.create({
+        username: "Bobby",
+        password: "Jenkins"
+    }).then(function(){
+        console.log("try")
+    })
     res.render("login");
 });
 
